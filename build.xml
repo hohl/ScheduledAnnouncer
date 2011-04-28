@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Announcer" default="all">
+  
+  
+  <property file="Announcer.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module AnnouncerPlugin -->
+  
+  <dirname property="module.Announcer.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.Announcer" value="${compiler.args}"/>
+  
+  <property name="Announcer.output.dir" value="${module.Announcer.basedir}/out/production/Announcer"/>
+  <property name="Announcer.testoutput.dir" value="${module.Announcer.basedir}/out/test/Announcer"/>
+  
+  <path id="Announcer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="Announcer.module.production.classpath"/>
+  
+  <path id="Announcer.runtime.production.module.classpath">
+    <pathelement location="${Announcer.output.dir}"/>
+  </path>
+  
+  <path id="Announcer.module.classpath">
+    <pathelement location="${Announcer.output.dir}"/>
+  </path>
+  
+  <path id="Announcer.runtime.module.classpath">
+    <pathelement location="${Announcer.testoutput.dir}"/>
+    <pathelement location="${Announcer.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.Announcer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.Announcer">
+    <patternset refid="excluded.from.module.Announcer"/>
+  </patternset>
+  
+  <path id="Announcer.module.sourcepath">
+    <dirset dir="${module.Announcer.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.Announcer" depends="compile.module.Announcer.production,compile.module.Announcer.tests" description="Compile module Announcer"/>
+  
+  <target name="compile.module.Announcer.production" description="Compile module Announcer; production classes">
+    <mkdir dir="${Announcer.output.dir}"/>
+    <javac destdir="${Announcer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.Announcer}"/>
+      <bootclasspath refid="Announcer.module.bootclasspath"/>
+      <classpath refid="Announcer.module.production.classpath"/>
+      <src refid="Announcer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.Announcer"/>
+    </javac>
+    
+    <copy todir="${Announcer.output.dir}">
+      <fileset dir="${module.Announcer.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.Announcer.tests" depends="compile.module.Announcer.production" description="compile module Announcer; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.Announcer" description="cleanup module">
+    <delete dir="${Announcer.output.dir}"/>
+    <delete dir="${Announcer.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.Announcer" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.Announcer" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

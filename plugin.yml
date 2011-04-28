@@ -1,0 +1,14 @@
+name: ScheduledAnnouncer
+main: at.co.hohl.Announcer.AnnouncerPlugin
+version: 1.4
+description: Automatically Announce tips and news!
+website: http://bit.ly/scheduledAnnouncer
+authors:
+ - 'Michael Hohl (miho)'
+commands:
+  announce:
+    description: Managing Announcements
+    usage: /<command> help - Displays the help for Announcer
+  announcer:
+    description: Alias for /announce
+    usage: /<command> help - Displays the help for Announcer
