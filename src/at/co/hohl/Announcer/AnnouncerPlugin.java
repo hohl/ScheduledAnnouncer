@@ -9,6 +9,7 @@ package at.co.hohl.Announcer;
 import at.co.hohl.Permissions.Permission;
 import at.co.hohl.Permissions.PermissionsHandler;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author hohl
  */
-public class AnnouncerPlugin extends JavaPlugin {
+public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
     /** Messages to be announced. */
     protected List<String> announcementMessages;
 
@@ -118,18 +119,26 @@ public class AnnouncerPlugin extends JavaPlugin {
     /**
      * Broadcasts an announcement.
      *
-     * @param message the message to promote.
+     * @param line the messages to promote.
      */
-    public void announce(String message) {
-        String announcement =
-                String.format("%s[%s] %s%s", announcementTagColor, announcementTag, announcementMessageColor, message);
+    public void announce(String line) {
+        String[] messages = line.split("$n");
+        for (String message : messages) {
+            if (message.startsWith("/")) {
+                getServer().dispatchCommand(this, message.substring(1));
+            } else {
+                String announcement =
+                        String.format("%s[%s] %s%s", announcementTagColor, announcementTag, announcementMessageColor,
+                                message);
 
-        if (sendToAll) {
-            getServer().broadcastMessage(ChatColorHelper.replaceColorCodes(announcement));
-        } else {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (permissionsHandler.hasPermission(player, AnnouncerPermissions.RECEIVER)) {
-                    player.sendMessage(announcement);
+                if (sendToAll) {
+                    getServer().broadcastMessage(ChatColorHelper.replaceColorCodes(announcement));
+                } else {
+                    for (Player player : getServer().getOnlinePlayers()) {
+                        if (permissionsHandler.hasPermission(player, AnnouncerPermissions.RECEIVER)) {
+                            player.sendMessage(announcement);
+                        }
+                    }
                 }
             }
         }
@@ -227,6 +236,7 @@ public class AnnouncerPlugin extends JavaPlugin {
      */
     public void removeAnnouncement(int index) {
         announcementMessages.remove(index - 1);
+        saveConfiguration();
     }
 
     /** @return the logger used by this plugin. */
@@ -255,6 +265,16 @@ public class AnnouncerPlugin extends JavaPlugin {
     public void setRandom(boolean random) {
         this.random = random;
         saveConfiguration();
+    }
+
+    @Override
+    public void sendMessage(String s) {
+        // Ignore...
+    }
+
+    @Override
+    public boolean isOp() {
+        return true;
     }
 }
 
