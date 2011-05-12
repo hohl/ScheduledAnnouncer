@@ -1,6 +1,6 @@
 name: ScheduledAnnouncer
 main: at.co.hohl.Announcer.AnnouncerPlugin
-version: 1.5
+version: 1.6
 description: Automatically Announce tips and news!
 website: http://bit.ly/scheduledAnnouncer
 authors:
