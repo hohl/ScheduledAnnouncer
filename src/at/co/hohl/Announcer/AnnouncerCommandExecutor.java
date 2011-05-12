@@ -18,6 +18,9 @@ import org.bukkit.command.CommandSender;
  * @author Michael Hohl
  */
 class AnnouncerCommandExecutor implements CommandExecutor {
+    /** Defines the numbers of entries per page at list command. */
+    private static final int ENTRIES_PER_PAGE = 7;
+
     /** The AnnouncerPlugin plugin, which holds this CommandExecutor. */
     private final AnnouncerPlugin plugin;
 
@@ -222,9 +225,22 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      */
     boolean onListCommand(CommandSender sender, Command command, String label, String[] args) {
         if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
-            if (args.length == 1) {
-                sender.sendMessage(ChatColor.GREEN + " === Announcements ===");
-                for (int index = 1; index <= plugin.announcementMessages.size(); ++index) {
+            if (args.length == 1 || args.length == 2) {
+                int page = 1;
+                if (args.length == 2) {
+                    try {
+                        page = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage(ChatColor.RED + "Invalid page number!");
+                    }
+                }
+                sender.sendMessage(ChatColor.GREEN + String.format(" === Announcements [Page %d/%d] ===", page,
+                        plugin.announcementMessages.size() / ENTRIES_PER_PAGE + 1));
+
+                final int indexStart = Math.abs(page - 1) * ENTRIES_PER_PAGE;
+                final int indexStop = Math.min(page * ENTRIES_PER_PAGE, plugin.announcementMessages.size());
+
+                for (int index = indexStart + 1; index <= indexStop; ++index) {
                     sender.sendMessage(String.format("%d - %s", index, ChatColorHelper.replaceColorCodes(
                             plugin.getAnnouncement(index))));
                 }

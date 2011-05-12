@@ -122,7 +122,7 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
      * @param line the messages to promote.
      */
     public void announce(String line) {
-        String[] messages = line.split("$n");
+        String[] messages = line.split("&n");
         for (String message : messages) {
             if (message.startsWith("/")) {
                 getServer().dispatchCommand(this, message.substring(1));
