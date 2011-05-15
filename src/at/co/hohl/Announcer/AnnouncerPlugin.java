@@ -127,9 +127,13 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
             if (message.startsWith("/")) {
                 getServer().dispatchCommand(this, message.substring(1));
             } else {
-                String announcement =
-                        String.format("%s[%s] %s%s", announcementTagColor, announcementTag, announcementMessageColor,
-                                message);
+                String announcement;
+                if (announcementTag != null && announcementTag.length() > 0) {
+                    announcement = String.format("%s[%s] %s%s", announcementTagColor, announcementTag,
+                            announcementMessageColor, message);
+                } else {
+                    announcement = String.format("%s %s%s", announcementTagColor, announcementMessageColor, message);
+                }
 
                 if (sendToAll) {
                     getServer().broadcastMessage(ChatColorHelper.replaceColorCodes(announcement));
