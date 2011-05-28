@@ -4,7 +4,7 @@
     <root id="archive" name="ScheduledAnnouncer.jar">
       <element id="module-output" name="Announcer" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
-      <element id="library" level="application" name="Universal Permissions API" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Permissions/out/artifacts/Permissions.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

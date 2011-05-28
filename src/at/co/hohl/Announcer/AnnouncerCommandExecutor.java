@@ -6,7 +6,7 @@
 
 package at.co.hohl.Announcer;
 
-import at.co.hohl.Permissions.PermissionsHandler;
+import at.co.hohl.permissions.PermissionHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -113,24 +113,23 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onHelpCommand(CommandSender sender, Command command, String label, String[] args) {
-        PermissionsHandler permissionsHandler = plugin.getPermissionsHandler();
+        PermissionHandler permissionHandler = plugin.getPermissionHandler();
 
-        sender.sendMessage(
-                String.format("%s === %s [Version %s] === ", ChatColor.LIGHT_PURPLE, plugin.getDescription().getName(),
-                        plugin.getDescription().getVersion()));
-        if (permissionsHandler.hasPermission(sender, AnnouncerPermissions.ADD)) {
+        sender.sendMessage(String.format("%s === %s [Version %s] === ", ChatColor.LIGHT_PURPLE,
+                plugin.getDescription().getName(), plugin.getDescription().getVersion()));
+        if (permissionHandler.hasPermission(sender, AnnouncerPermissions.ADD)) {
             sender.sendMessage(ChatColor.GRAY + "/announce add <message>" + ChatColor.WHITE +
                     " - Adds a new announcement");
         }
-        if (permissionsHandler.hasPermission(sender, AnnouncerPermissions.BROADCAST)) {
+        if (permissionHandler.hasPermission(sender, AnnouncerPermissions.BROADCAST)) {
             sender.sendMessage(ChatColor.GRAY + "/announce broadcast [<index>]" + ChatColor.WHITE +
                     " - Broadcast an announcement NOW");
         }
-        if (permissionsHandler.hasPermission(sender, AnnouncerPermissions.DELETE)) {
+        if (permissionHandler.hasPermission(sender, AnnouncerPermissions.DELETE)) {
             sender.sendMessage(ChatColor.GRAY + "/announce delete <index>" + ChatColor.WHITE +
                     " - Removes the announcement with the passed index");
         }
-        if (permissionsHandler.hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (permissionHandler.hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             sender.sendMessage(ChatColor.GRAY + "/announce enable [true|false]" + ChatColor.WHITE +
                     " - Enables or disables the announcer.");
             sender.sendMessage(ChatColor.GRAY + "/announce interval <seconds>" + ChatColor.WHITE +
@@ -139,7 +138,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.GRAY + "/announce random [true|false]" + ChatColor.WHITE +
                     " - Enables or disables the random announcing mode.");
         }
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.ADMINISTRATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.ADMINISTRATOR)) {
             sender.sendMessage(ChatColor.GRAY + "/announce reload" + ChatColor.WHITE + " - Reloads the config.yml");
         }
 
@@ -156,7 +155,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onAddCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.ADD)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.ADD)) {
             if (args.length > 1) {
                 StringBuilder messageToAnnounce = new StringBuilder();
                 for (int index = 1; index < args.length; ++index) {
@@ -186,7 +185,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onBroadcastCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.BROADCAST)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.BROADCAST)) {
             if (args.length == 2) {
                 try {
                     int index = Integer.parseInt(args[1]);
@@ -224,7 +223,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onListCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             if (args.length == 1 || args.length == 2) {
                 int page = 1;
                 if (args.length == 2) {
@@ -265,7 +264,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onDeleteCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.DELETE)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.DELETE)) {
             if (args.length == 2) {
                 try {
                     int index = Integer.parseInt(args[1]);
@@ -303,7 +302,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onIntervalCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             if (args.length == 2) {
                 try {
                     plugin.setAnnouncementInterval(Integer.parseInt(args[1]));
@@ -339,7 +338,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onRandomCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             if (args.length == 2) {
                 if ("true".equalsIgnoreCase(args[1])) {
                     plugin.setRandom(true);
@@ -378,7 +377,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onEnableCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             if (args.length == 2) {
                 if ("true".equalsIgnoreCase(args[1])) {
                     plugin.setAnnouncerEnabled(true);
@@ -417,7 +416,7 @@ class AnnouncerCommandExecutor implements CommandExecutor {
      * @return true if a valid command, otherwise false
      */
     boolean onReloadCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (plugin.getPermissionsHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
+        if (plugin.getPermissionHandler().hasPermission(sender, AnnouncerPermissions.MODERATOR)) {
             if (args.length == 1) {
                 plugin.reloadConfiguration();
                 sender.sendMessage(ChatColor.LIGHT_PURPLE + "Configuration reloaded.");

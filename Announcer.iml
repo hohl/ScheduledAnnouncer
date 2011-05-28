@@ -10,7 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Bukkit SDK" level="application" />
-    <orderEntry type="library" exported="" name="Universal Permissions API" level="application" />
+    <orderEntry type="library" exported="" name="PermissionHandler" level="application" />
   </component>
 </module>
 

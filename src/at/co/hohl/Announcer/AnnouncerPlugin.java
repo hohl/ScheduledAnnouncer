@@ -6,8 +6,7 @@
 
 package at.co.hohl.Announcer;
 
-import at.co.hohl.Permissions.Permission;
-import at.co.hohl.Permissions.PermissionsHandler;
+import at.co.hohl.permissions.PermissionHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -55,7 +54,7 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
     private AnnouncerCommandExecutor announcerCommandExecutor;
 
     /** The permissions handler user */
-    private PermissionsHandler permissionsHandler;
+    private PermissionHandler permissionHandler;
 
     /** The logger used to output logging information. */
     private Logger logger;
@@ -77,7 +76,7 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
         logger = getServer().getLogger();
 
         // Setup Permissions.
-        permissionsHandler = Permission.getHandler(this);
+        permissionHandler = new PermissionHandler(this);
 
         // Load configuration.
         reloadConfiguration();
@@ -135,12 +134,13 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
                     announcement = String.format("%s %s%s", announcementTagColor, announcementMessageColor, message);
                 }
 
+                String messageToSend = ChatColorHelper.replaceColorCodes(announcement);
                 if (sendToAll) {
-                    getServer().broadcastMessage(ChatColorHelper.replaceColorCodes(announcement));
+                    getServer().broadcastMessage(messageToSend);
                 } else {
                     for (Player player : getServer().getOnlinePlayers()) {
-                        if (permissionsHandler.hasPermission(player, AnnouncerPermissions.RECEIVER)) {
-                            player.sendMessage(announcement);
+                        if (permissionHandler.hasPermission(player, AnnouncerPermissions.RECEIVER)) {
+                            player.sendMessage(messageToSend);
                         }
                     }
                 }
@@ -249,8 +249,8 @@ public class AnnouncerPlugin extends JavaPlugin implements CommandSender {
     }
 
     /** @return the handler used for permissions. */
-    public PermissionsHandler getPermissionsHandler() {
-        return permissionsHandler;
+    public PermissionHandler getPermissionHandler() {
+        return permissionHandler;
     }
 
     public boolean isAnnouncerEnabled() {
