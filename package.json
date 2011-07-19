@@ -10,7 +10,7 @@
     "required_dependencies": [],
     "optional_dependencies": [],
     "conflicts": [],
-    "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.6.3_bukget.zip",
+    "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.7.0_bukget.zip",
     "checksum": "239a73dae0dc8288b4dece5143d66e2a",
     "branch": "stable",
     "warn": "Release 1.7.0 does not support Permissions or GroupManager anymore! Use bukkit permissions system instead.",
