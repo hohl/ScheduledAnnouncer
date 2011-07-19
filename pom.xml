@@ -6,7 +6,7 @@
 
   <groupId>ScheduledAnnouncer</groupId>
   <artifactId>ScheduledAnnouncer</artifactId>
-  <version>1.0</version>
+  <version>1.7.0</version>
 
   <scm>
     <connection>scm:git:git://github.com/hohl/EasyUnlock.git</connection>
