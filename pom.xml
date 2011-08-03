@@ -9,26 +9,16 @@
   <version>1.7.0</version>
 
   <scm>
-    <connection>scm:git:git://github.com/hohl/EasyUnlock.git</connection>
-    <url>https://github.com/hohl/EasyUnlock</url>
-    <developerConnection>scm:git:git@github.com:hohl/EasyUnlock.git</developerConnection>
+    <connection>scm:git:git://github.com/hohl/ScheduledAnnouncer.git</connection>
+    <url>https://github.com/hohl/ScheduledAnnouncer</url>
   </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>ftp-repository</id>
-      <url>ftp://hohl.bplaced.net/mvn2</url>
-    </repository>
-  </distributionManagement>
-
   <repositories>
-    <!-- Repository for dependencies of MIHO's -->
     <repository>
-      <id>miho-mvn2</id>
-      <url>http://hohl.bplaced.net/mvn2</url>
+      <id>hohl-repo</id>
+      <url>http://dev.hohl-it.com/artifactory/repo</url>
     </repository>
 
-    <!-- Repository for Bukkit -->
     <repository>
       <id>bukkit-repo</id>
       <url>http://repo.bukkit.org/artifactory/repo</url>
@@ -46,7 +36,6 @@
   </dependencies>
 
   <build>
-    <!--<sourceDirectory>${basedir}/src/main/java/</sourceDirectory>-->
     <sourceDirectory>src/main/java/</sourceDirectory>
 
     <!-- Resources -->
@@ -67,7 +56,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <configuration>
+           <source>1.5</source>
+           <target>1.5</target>
+        </configuration>
       </plugin>
 
       <!-- Assembly -->
@@ -88,15 +80,6 @@
         </executions>
       </plugin>
     </plugins>
-
-    <extensions>
-      <!-- Enabling the use of FTP -->
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ftp</artifactId>
-        <version>1.0-beta-6</version>
-      </extension>
-    </extensions>
   </build>
 
 </project>
