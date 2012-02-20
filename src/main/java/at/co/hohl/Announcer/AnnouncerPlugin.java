@@ -143,7 +143,7 @@ public class AnnouncerPlugin extends JavaPlugin {
     String[] messages = line.split("&n");
     for (String message : messages) {
       if (message.startsWith("/")) {
-        getServer().dispatchCommand(new ConsoleCommandSender(getServer()), message.substring(1));
+        getServer().dispatchCommand(getServer().getConsoleSender(), message.substring(1));
       } else {
         String announcement;
         if (announcementTag != null && announcementTag.length() > 0) {
@@ -171,15 +171,15 @@ public class AnnouncerPlugin extends JavaPlugin {
    * Saves the announcements.
    */
   public void saveConfiguration() {
-    getConfiguration().setProperty("announcement.messages", announcementMessages);
-    getConfiguration().setProperty("announcement.interval", announcementInterval);
-    getConfiguration().setProperty("announcement.broadcast-color", announcementMessageColor.name());
-    getConfiguration().setProperty("announcement.broadcast-tag", announcementTag);
-    getConfiguration().setProperty("announcement.broadcast-tag-color", announcementTagColor.name());
-    getConfiguration().setProperty("announcement.enabled", enabled);
-    getConfiguration().setProperty("announcement.random", random);
-    getConfiguration().setProperty("announcement.sendToAll", sendToAll);
-    getConfiguration().save();
+    getConfig().set("announcement.messages", announcementMessages);
+    getConfig().set("announcement.interval", announcementInterval);
+    getConfig().set("announcement.broadcast-color", announcementMessageColor.name());
+    getConfig().set("announcement.broadcast-tag", announcementTag);
+    getConfig().set("announcement.broadcast-tag-color", announcementTagColor.name());
+    getConfig().set("announcement.enabled", enabled);
+    getConfig().set("announcement.random", random);
+    getConfig().set("announcement.sendToAll", sendToAll);
+    saveConfig();
   }
 
   /**
@@ -191,17 +191,17 @@ public class AnnouncerPlugin extends JavaPlugin {
     defaultAnnouncementMessages.add("Use /announce help to get info how to config this plugin.");
     defaultAnnouncementMessages.add("You can also configure this plugin with its 'config.yml' too!");
 
-    getConfiguration().load();
-    announcementTag = getConfiguration().getString("announcement.broadcast-tag", "Announcement");
+    reloadConfig();
+    announcementTag = getConfig().getString("announcement.broadcast-tag", "Announcement");
     announcementMessageColor =
-            ChatColor.valueOf(getConfiguration().getString("announcement.broadcast-color", "LIGHT_PURPLE"));
-    announcementTagColor = ChatColor.valueOf(getConfiguration().getString("announcement.broadcast-tag-color",
+            ChatColor.valueOf(getConfig().getString("announcement.broadcast-color", "LIGHT_PURPLE"));
+    announcementTagColor = ChatColor.valueOf(getConfig().getString("announcement.broadcast-tag-color",
             announcementMessageColor.name()));
-    announcementMessages = getConfiguration().getStringList("announcement.messages", defaultAnnouncementMessages);
-    announcementInterval = getConfiguration().getInt("announcement.interval", 1000);
-    enabled = getConfiguration().getBoolean("announcement.enabled", true);
-    random = getConfiguration().getBoolean("announcement.random", false);
-    sendToAll = getConfiguration().getBoolean("announcement.sendToAll", true);
+    announcementMessages = getConfig().getStringList("announcement.messages");
+    announcementInterval = getConfig().getInt("announcement.interval", 1000);
+    enabled = getConfig().getBoolean("announcement.enabled", true);
+    random = getConfig().getBoolean("announcement.random", false);
+    sendToAll = getConfig().getBoolean("announcement.sendToAll", true);
   }
 
   /**

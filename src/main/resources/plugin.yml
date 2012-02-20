@@ -1,10 +1,10 @@
 name: ScheduledAnnouncer
 main: at.co.hohl.Announcer.AnnouncerPlugin
-version: 1.7.0
+version: 1.7.1
 description: Automatically Announce tips and news!
 website: http://github.com/hohl/ScheduledAnnouncer
 authors:
- - 'Michael Hohl (miho)'
+ - 'miho'
 
 commands:
   announce:

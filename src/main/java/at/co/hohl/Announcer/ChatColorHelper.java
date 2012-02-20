@@ -22,7 +22,7 @@ public class ChatColorHelper {
    */
   public static String replaceColorCodes(String message) {
     for (ChatColor color : ChatColor.values()) {
-      message = message.replaceAll(String.format("&%x", color.getCode()), color.toString());
+      message = message.replaceAll(String.format("&%c", color.getChar()), color.toString());
     }
 
     return message;
