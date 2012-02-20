@@ -1,36 +1,45 @@
 {
-  "name": "ScheduledAnnouncer",
-  "authors": ["miho"],
-  "maintainer": "miho",
-  "description": "Announce tips and news as scheduled broadcasts inside Minecraft",
-  "website": "http://www.github.com/hohl/ScheduledAnnouncer",
-  "categories": ["CHAT"],
-  "versions": [{
-    "version": "1.7.0",
-    "required_dependencies": [],
-    "optional_dependencies": [],
-    "conflicts": [],
-    "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.7.0_bukget.zip",
-    "checksum": "239a73dae0dc8288b4dece5143d66e2a",
-    "branch": "stable",
-    "warn": "Release 1.7.0 does not support Permissions or GroupManager anymore! Use bukkit permissions system instead.",
-    "engines": [{
-      "engine": "craftbukkit",
-      "build_min": 1000,
-      "build_max": 1003
-    }]
-  },   {
-    "version": "1.6.3",
-    "required_dependencies": [],
-    "optional_dependencies": [["Permissions","GroupManager"]],
-    "conflicts": [],
-    "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.6.3_bukget.zip",
-    "checksum": "bacbc0c0bb46d54ad87936eedfe0ab2e",
-    "branch": "stable",
-    "engines": [{
-      "engine": "craftbukkit",
-      "build_min": 740,
-      "build_max": 999
-    }]
-  }]
+    "name": "ScheduledAnnouncer",
+    "authors": ["miho"],
+    "maintainer": "miho",
+    "description": "Announce tips and news as scheduled broadcasts inside Minecraft",
+    "website": "http://www.github.com/hohl/ScheduledAnnouncer",
+    "categories": ["CHAT"],
+    "versions": [
+        {
+            "version": "1.7.0",
+            "required_dependencies": [],
+            "optional_dependencies": [],
+            "conflicts": [],
+            "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.7.0_bukget.zip",
+            "checksum": "239a73dae0dc8288b4dece5143d66e2a",
+            "branch": "stable",
+            "warn": "Release 1.7.0 does not support Permissions or GroupManager anymore! Use bukkit permissions system instead.",
+            "engines": [
+                {
+                    "engine": "craftbukkit",
+                    "build_min": 1000,
+                    "build_max": 1003
+                }
+            ]
+        },
+        {
+            "version": "1.6.3",
+            "required_dependencies": [],
+            "optional_dependencies": [
+                ["Permissions","GroupManager"]
+            ],
+            "conflicts": [],
+            "location": "http://github.com/downloads/hohl/ScheduledAnnouncer/ScheduledAnnouncer-1.6.3_bukget.zip",
+            "checksum": "bacbc0c0bb46d54ad87936eedfe0ab2e",
+            "branch": "stable",
+            "engines": [
+                {
+                    "engine": "craftbukkit",
+                    "build_min": 740,
+                    "build_max": 999
+                }
+            ]
+        }
+    ]
 }
