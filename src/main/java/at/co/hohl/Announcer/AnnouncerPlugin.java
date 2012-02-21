@@ -17,6 +17,7 @@ package at.co.hohl.Announcer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -76,6 +77,11 @@ public class AnnouncerPlugin extends JavaPlugin {
      */
     public void onEnable() {
         logger = getServer().getLogger();
+
+        // Create default config if not exist yet.
+        if (!new File(getDataFolder(), "config.yml").exists()) {
+            saveDefaultConfig();
+        }
 
         // Load configuration.
         reloadConfiguration();
@@ -159,6 +165,23 @@ public class AnnouncerPlugin extends JavaPlugin {
         announcementInterval = getConfig().getInt("announcement.interval", 1000);
         enabled = getConfig().getBoolean("announcement.enabled", true);
         random = getConfig().getBoolean("announcement.random", false);
+    }
+
+    /**
+     * @return prefix used for all announcements.
+     */
+    public String getAnnouncementPrefix() {
+        return announcementPrefix;
+    }
+
+    /**
+     * Sets the prefix used for all announcements.
+     *
+     * @param announcementPrefix the prefix to use for all announcements.
+     */
+    public void setAnnouncementPrefix(String announcementPrefix) {
+        this.announcementPrefix = announcementPrefix;
+        saveConfig();
     }
 
     /**

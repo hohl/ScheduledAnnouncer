@@ -70,6 +70,8 @@ class AnnouncerCommandExecutor implements CommandExecutor {
             success = onDeleteCommand(sender, command, label, args);
         } else if ("interval".equalsIgnoreCase(args[0])) {
             success = onIntervalCommand(sender, command, label, args);
+        } else if ("prefix".equalsIgnoreCase(args[0])) {
+            success = onPrefixCommand(sender, command, label, args);
         } else if ("random".equalsIgnoreCase(args[0])) {
             success = onRandomCommand(sender, command, label, args);
         } else if ("enable".equalsIgnoreCase(args[0])) {
@@ -142,6 +144,8 @@ class AnnouncerCommandExecutor implements CommandExecutor {
                 " - Enables or disables the announcer.");
             sender.sendMessage(ChatColor.GRAY + "/announce interval <seconds>" + ChatColor.WHITE +
                 " - Sets the seconds between the announcements.");
+            sender.sendMessage(ChatColor.GRAY + "/announce prefix <message>" + ChatColor.WHITE +
+                " - Sets the prefix for all announcements.");
             sender.sendMessage(ChatColor.GRAY + "/announce list" + ChatColor.WHITE + " - Lists all announcements");
             sender.sendMessage(ChatColor.GRAY + "/announce random [true|false]" + ChatColor.WHITE +
                 " - Enables or disables the random announcing mode.");
@@ -323,11 +327,42 @@ class AnnouncerCommandExecutor implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Interval must be greater than 0!");
                 }
             } else if (args.length == 1) {
-                sender.sendMessage(String.format("%s Period duration is %d", ChatColor.LIGHT_PURPLE,
+                sender.sendMessage(String.format("%sPeriod duration is %d", ChatColor.LIGHT_PURPLE,
                     plugin.getAnnouncementInterval()));
             } else {
                 sender.sendMessage(
                     ChatColor.RED + "Too many arguments! Use '/announce help' to view the help!");
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Called when user uses the /announce prefix command.
+     *
+     * @param sender  the sender. (In most case a player.)
+     * @param command the command send.
+     * @param label   the label used for the command
+     * @param args    the arguments.
+     * @return true if a valid command, otherwise false
+     */
+    boolean onPrefixCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender.hasPermission(AnnouncerPermissions.MODERATOR)) {
+            if (args.length > 1) {
+                StringBuilder prefixBuilder = new StringBuilder();
+                for (int index = 1; index < args.length; ++index) {
+                    prefixBuilder.append(args[index]);
+                    prefixBuilder.append(" ");
+                }
+                plugin.setAnnouncementPrefix(prefixBuilder.toString());
+
+                sender.sendMessage(ChatColor.GREEN + "Set prefix for all announcements successfully!");
+            } else {
+                sender.sendMessage(String.format("%sPrefix is %s", ChatColor.LIGHT_PURPLE,
+                    ChatColorHelper.replaceColorCodes(plugin.getAnnouncementPrefix())));
             }
 
             return true;
