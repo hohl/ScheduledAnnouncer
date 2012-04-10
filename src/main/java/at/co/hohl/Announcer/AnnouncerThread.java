@@ -53,7 +53,7 @@ class AnnouncerThread extends Thread {
     public void run() {
         if (plugin.isAnnouncerEnabled()) {
             if (plugin.isRandom()) {
-                lastAnnouncement = randomGenerator.nextInt() % plugin.numberOfAnnouncements();
+                lastAnnouncement = Math.abs(randomGenerator.nextInt() % plugin.numberOfAnnouncements());
             } else {
                 if ((++lastAnnouncement) >= plugin.numberOfAnnouncements()) {
                     lastAnnouncement = 0;

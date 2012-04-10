@@ -20,7 +20,7 @@
 
     <groupId>ScheduledAnnouncer</groupId>
     <artifactId>ScheduledAnnouncer</artifactId>
-    <version>1.8</version>
+    <version>1.8.1</version>
 
     <scm>
         <connection>scm:git:git://github.com/hohl/ScheduledAnnouncer.git</connection>
