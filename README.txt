@@ -1,5 +1,5 @@
 ScheduledAnnouncer
-Copyright (c) 2011, Michael Hohl <http://www.hohl.co.at>
+Copyright (c) 2011, Michael Hohl <https://www.michaelhohl.net>
 Licensed under the GNU General Public License v3
 
 Introduction
